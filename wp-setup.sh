@@ -2,7 +2,8 @@
 # ------------------------------------
 # To run this bash script:
 # 1) Search and replace "example" & "exmp" with the real new sitename & DB prefix;
-# 2) Type  bash wp-setup.sh  on the Command Line (root of the project dir);
+# 2) Change all the default variables as needed, such as wp_admin_user, wp_admin_pass, PLUGINS_TO_INSTALL etc.
+# 3) Type  bash wp-setup.sh  on the Command Line (root of the project dir);
 # ------------------------------------
 
 # Path:
