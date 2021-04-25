@@ -1,0 +1,41 @@
+// Spacing
+// -----------------------------------------------
+
+@import "mixins.scss";
+
+.mb-70 {
+    margin-bottom: 70px;
+}
+.mt-60 {
+    margin-top: 60px;
+}
+
+.primary-padding {
+    padding-top: 75px;
+    padding-bottom: 75px;
+
+    @include responsive(sm) {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
+
+.secondary-padding {
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    @include responsive(sm) {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+}
+
+.tertiary-padding {
+    padding-top: 35px;
+    padding-bottom: 35px;
+
+    @include responsive(sm) {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
