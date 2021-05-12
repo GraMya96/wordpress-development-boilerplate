@@ -11,7 +11,7 @@ function theme_styles() {
         wp_enqueue_style('main-style');
 
         // JS
-        wp_enqueue_script('main-js', get_template_directory_uri() . '/dist/js/main.js', array(), $version, true);
+        wp_enqueue_script('main-js', get_template_directory_uri() . '/main.min.js', array(), $version, true);
 }
 
 // Add menu navigation in "Appareance"

@@ -5,17 +5,19 @@ import cleanCss from 'gulp-clean-css';
 import gulpif from 'gulp-if';
 import postcss from 'gulp-postcss';
 import concat from 'gulp-concat';
-// import concatJs from 'gulp-concat-js';
 import sourcemaps from 'gulp-sourcemaps';
 import autoprefixer from 'autoprefixer';
 import imagemin from 'gulp-imagemin';
+// import rename from 'gulp-rename';
 import del from 'del';
-import webpack from 'webpack-stream';
-import named from 'vinyl-named';
+// import webpack from 'webpack-stream';
+import uglify from "gulp-uglify"
+// import named from 'vinyl-named';
 import browserSync from "browser-sync";
-// import zip from "gulp-zip";
-import info from "./package.json";
+import replace from "gulp-replace"
 import wpPot from "gulp-wp-pot";
+import info from "./package.json";
+// import zip from "gulp-zip";
 
 const PRODUCTION = yargs.argv.prod;
 
@@ -32,11 +34,27 @@ export const reload = done => {
     server.reload();
     done();
 };
+// ------------------------------------------------
+
 
 
 // TASK: Deleting dist folder
-export const clean = () => del(['dist']);
+export const deleteDistFolder = () => {
+    return del(['dist']);
+}
 // ------------------------------------------------
+
+
+
+// TASK: Deleting development theme folder
+export const deleteDevTheme = () => {
+    return gulpif(PRODUCTION, del(
+        [`../${info.name}_theme`],
+        { force: true }
+    ));
+}
+// ------------------------------------------------
+
 
 
 // TASK: Handling Styles:
@@ -88,38 +106,53 @@ export const copy = () => {
 // ------------------------------------------------
 
 
-// TASK: Merging js files into one and moving
-// it into dist folder
-export const scripts = () => {
-    return src(['src/js/main.js'])
-    .pipe(named())
-    .pipe(webpack({
-        module: {
-            rules: [
-                {
-                    test: /\.js$/,
-                    use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: []
-                        }
-                    }
-                }
-            ]
-        },
-        mode: PRODUCTION ? 'production' : 'development',
-        devtool: !PRODUCTION ? 'inline-source-map' : false,
-        output: {
-            filename: '[name].js'
-        }
-    }))
-    .pipe(dest('dist/js'));
+// TASK: Bundling all JS files with Webpack
+// export const webpackBundling = () => {
+//     return src([
+//         'src/js/bundle.js',
+//     ])
+//     .pipe(named())
+//     .pipe(webpack({
+//         module: {
+//             rules: [
+//                 {
+//                     test: /\.js$/,
+//                     use: {
+//                         loader: 'babel-loader',
+//                         options: {
+//                             presets: ['@babel/preset-env']
+//                         }
+//                     }
+//                 }
+//             ]
+//         },
+//         mode: PRODUCTION ? 'production' : 'development',
+//         devtool: !PRODUCTION ? 'inline-source-map' : false,
+//         output: {
+//             filename: '[name].js'
+//         }
+//     }))
+//     .pipe(dest('dist/js'));
+// }
+// ------------------------------------------------
+
+
+
+export const concatenateJs = () => {
+    return src([
+        'src/js/**/*.js'
+    ])
+        .pipe(dest('dist/js'))
+        .pipe(gulpif(PRODUCTION, uglify()))
+        .pipe(concat('main.min.js'))
+        .pipe(dest('./'));
 }
 // ------------------------------------------------
 
 
+
 // TASK: Preparing package for deployment (excluding unnecessary files)
-export const compress = () => {
+export const createProductionTheme = () => {
     return src([
     "**/*",
     "!node_modules{,/**}",
@@ -147,7 +180,7 @@ export const pot = () => {
     return src("**/*.php")
     .pipe(
         wpPot({
-            domain: "_lprd",
+            domain: `_${info.prefix}`,
             package: info.name
         })
     )
@@ -156,17 +189,26 @@ export const pot = () => {
 // ------------------------------------------------
 
 
+// TASK: Replacing "sitename_theme_dev" with "sitename_theme"
+export const replaceDevString = () => {
+    return src("**/*.php")
+    .pipe(replace(`${info.name}_theme_dev`, `${info.name}_theme`))
+    .pipe(dest(`../${info.name}_theme`));
+};
+// ------------------------------------------------
+
+
 // TASK: Watch for Changes in any file
 export const watchForChanges = () => {
-    watch('src/sass/**/*.scss', handleSass, handleCss);
+    watch('src/sass/**/*.scss', series(handleSass, handleCss));
     watch('src/img/**/*.{jpg,jpeg,png,svg,gif}', series(images, reload));
     watch(['src/**/*','!src/{img,js,css}','!src/{img,js,css}/**/*'], series(copy, reload));
-    watch('src/js/**/*.js', series(scripts, reload));
+    watch('src/js/**/*.js', series(/*webpackBundling */ concatenateJs, reload));
     watch("**/*.php", reload);
 }
 // ------------------------------------------------
 
 
-export const dev = series(clean, parallel(handleSass, handleCss, images, copy, scripts), serve, watchForChanges);
-export const build = series(clean, parallel(handleSass, handleCss, images, copy, scripts), pot, compress);
+export const dev = series(deleteDistFolder, parallel(handleSass, handleCss, concatenateJs, images, copy), serve, watchForChanges);
+export const build = series(deleteDistFolder, parallel(handleSass, handleCss, concatenateJs, images, copy), pot, deleteDevTheme, createProductionTheme, replaceDevString);
 export default dev;
