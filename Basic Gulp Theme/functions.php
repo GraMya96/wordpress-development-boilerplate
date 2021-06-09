@@ -11,4 +11,5 @@ require_once ( 'inc/custom-functions.php' );
 require_once ( 'inc/text-and-media.php' );
 require_once ( 'inc/enqueues.php' );
 require_once ( 'inc/image-sizes.php' );
+require_once ( 'inc/admin-css.php' );
 
