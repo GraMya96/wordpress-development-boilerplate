@@ -184,7 +184,7 @@ export const pot = () => {
             package: info.name
         })
     )
-    .pipe(dest(`languages/${info.name}.pot`));
+    .pipe(dest(`languages/${info.prefix}.pot`));
 };
 // ------------------------------------------------
 
