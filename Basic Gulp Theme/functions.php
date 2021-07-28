@@ -13,3 +13,8 @@ require_once ( 'inc/enqueues.php' );
 require_once ( 'inc/image-sizes.php' );
 require_once ( 'inc/admin-css.php' );
 
+foreach (glob(get_template_directory() . "/post-types/*.php") as $filename)
+{
+    include $filename;
+}
+
