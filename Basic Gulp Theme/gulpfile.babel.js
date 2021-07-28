@@ -163,6 +163,7 @@ export const createProductionTheme = () => {
     "!gulpfile.babel.js",
     "!package.json",
     "!package-lock.json",
+    "!wp-cli.txt",
     ])
     // .pipe(
     //     gulpif(
