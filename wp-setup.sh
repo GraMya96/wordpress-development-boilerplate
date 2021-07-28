@@ -79,6 +79,9 @@ wp scaffold post-type $custom_ps_slug --label=$custom_ps_label --theme=${sitenam
 wp post generate --count=5 --post_type=$custom_ps_slug --post_date=$today_date
 # wp post generate --count=5 --post_type=$custom_ps_slug_2 --post_date=$today_date
 
+# Delete "Uncategorized" default category:
+wp term delete category uncategorized --by=slug
+
 # If needed, create Categories:
 # wp term create category "Media Partner"
 
