@@ -190,9 +190,13 @@ export const pot = () => {
 
 
 // TASK: Replacing "sitename_theme_dev" with "sitename_theme"
+// and "Sitename Theme Dev" with "Sitename Theme"
 export const replaceDevString = () => {
-    return src("**/*.php")
+    const capitalizedName = (info.name).charAt(0).toUpperCase() + (info.name).slice(1);
+
+    return src("**/*.{php,scss,css}")
     .pipe(replace(`${info.name}_theme_dev`, `${info.name}_theme`))
+    .pipe(replace(`${capitalizedName} Theme Dev`, `${capitalizedName} Theme`))
     .pipe(dest(`../${info.name}_theme`));
 };
 // ------------------------------------------------
