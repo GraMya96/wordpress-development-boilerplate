@@ -73,7 +73,7 @@ wp post create --post_title='Privacy Policy' --post_type=page --post_status=publ
 
 # If needed, create a CPT:
 wp scaffold post-type $custom_ps_slug --label=$custom_ps_label --theme=${sitename}"_theme_dev"
-# wp scaffold post-type $custom_ps_slug_2 --label=$custom_ps_label_2 --theme=${sitename}" Theme Dev"
+# wp scaffold post-type $custom_ps_slug_2 --label=$custom_ps_label_2 --theme=${sitename}"_theme_dev"
 
 # If needed, create Categories:
 # wp term create category "Media Partner"
