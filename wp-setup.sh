@@ -75,10 +75,6 @@ wp post create --post_title='Privacy Policy' --post_type=page --post_status=publ
 wp scaffold post-type $custom_ps_slug --label=$custom_ps_label --theme=${sitename}" Theme Dev"
 # wp scaffold post-type $custom_ps_slug_2 --label=$custom_ps_label_2 --theme=${sitename}" Theme Dev"
 
-# Create 5 dummy posts for each post type created:
-wp post generate --count=5 --post_type=$custom_ps_slug --post_date=$today_date
-# wp post generate --count=5 --post_type=$custom_ps_slug_2 --post_date=$today_date
-
 # Delete "Uncategorized" default category:
 wp term delete category uncategorized --by=slug
 
