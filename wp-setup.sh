@@ -27,10 +27,10 @@ custom_ps_label="News"
 # ---------------------------------------------------------
 
 # Initialize Local Rep with GIT init:
-# git init
+git init
 
 # Download WP Core Files:
-# wp core download
+wp core download
 
 # Create config.php file filled with local phpmyadmin credentials and delete wp-config-sample.php
 sudo wp config create --dbname=$db_name --dbuser=$db_username --dbpass=$db_pass --dbhost=$hostname --dbprefix=$db_prefix --allow-root
@@ -64,6 +64,9 @@ wp post delete $(wp post list --post_type=page --format=ids --force)
 
 # If needed, create a CPT
 wp scaffold post-type $custom_ps_slug --label=$custom_ps_label --theme=${sitename}"_theme_dev"
+
+# If needed, create Categories
+# wp term create category "Media Partner"
 
 # Confirmation Message
 echo "${sitename} website installation completed. Have fun Coding ;)"
