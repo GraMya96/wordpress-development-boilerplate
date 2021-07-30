@@ -6,9 +6,10 @@ function my_custom_admin_css() {
         margin: 40px 30px;
         box-shadow: 0px 0px 7px 2px rgba(0,0,0,.6);
     }
-    .acf-postbox[id*="acf-group"] h2 {
+    #editor .acf-postbox[id*="acf-group"] > div.postbox-header > h2 {
         text-transform: uppercase;
         color: red !important;
+        font-size: 14px !important;
     }
     .acf-postbox[id*="acf-group"] .acf-row-handle.order {
         background: #000;
