@@ -12,8 +12,17 @@ function my_custom_admin_css() {
         font-size: 14px !important;
     }
     .acf-postbox[id*="acf-group"] .acf-row-handle.order {
-        background: #000;
+        background: red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
         color: #fff;
+    }
+    .acf-row-handle.order span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .postbox.yoast.wpseo-metabox {
@@ -23,6 +32,9 @@ function my_custom_admin_css() {
     .postbox.yoast.wpseo-metabox h2 {
         text-transform: uppercase;
         color: red !important;
+    }
+    .edit-post-layout__metaboxes:not(:empty) .edit-post-meta-boxes-area {
+        margin: auto 0px !important;
     }
   </style>';
 }
