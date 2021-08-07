@@ -3,8 +3,8 @@
 function my_custom_admin_css() {
   echo '<style>
     .acf-postbox[id*="acf-group"] {
-        margin: 40px 30px;
-        box-shadow: 0px 0px 7px 2px rgba(0,0,0,.6);
+        margin: 35px 20px;
+        box-shadow: 0px 0px 4px 2px rgba(0,0,0,.6);
     }
     #editor .acf-postbox[id*="acf-group"] > div.postbox-header > h2 {
         text-transform: uppercase;
