@@ -4,9 +4,9 @@ function my_custom_admin_css() {
   echo '<style>
     .acf-postbox[id*="acf-group"] {
         margin: 35px 20px;
-        box-shadow: 0px 0px 4px 2px rgba(0,0,0,.6);
+        box-shadow: 0px 0px 5px 1px rgba(0,0,0,.6);
     }
-    #editor .acf-postbox[id*="acf-group"] > div.postbox-header > h2 {
+    .acf-postbox[id*="acf-group"] > div.postbox-header > h2 {
         text-transform: uppercase;
         color: red !important;
         font-size: 14px !important;
