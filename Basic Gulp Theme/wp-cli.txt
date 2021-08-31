@@ -3,8 +3,9 @@ EDIT wp_options TABLE DATA:
 	wp option update siteurl 'http://example.com'
 	wp option get siteurl
 
-CREATE CPT:
+CREATE CPT or TAXONOMY:
 	wp scaffold post-type yachts --label=Yachts --theme=leopard_theme_dev
+	wp scaffold taxonomy broadcaster --post_types=serie-tv --theme=serial-awards_theme_dev
 
 
 GENERATE DUMMY DATA (PAGES OR POST TYPES):
