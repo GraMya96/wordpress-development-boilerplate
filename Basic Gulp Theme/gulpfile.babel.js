@@ -207,7 +207,7 @@ export const replaceDevString = () => {
 export const watchForChanges = () => {
     watch('src/sass/**/*.scss', series(handleSass, handleCss));
     watch('src/img/**/*.{jpg,jpeg,png,svg,gif}', series(images, reload));
-    watch(['src/**/*','!src/{img,js,css}','!src/{img,js,css}/**/*'], series(copy, reload));
+    watch(['src/**/*','!src/{img,js,css,sass}','!src/{img,js,css,sass}/**/*'], series(copy, reload));
     watch('src/js/**/*.js', series(/*webpackBundling */ concatenateJs, reload));
     watch("**/*.php", reload);
 }
