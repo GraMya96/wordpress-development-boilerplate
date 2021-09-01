@@ -19,6 +19,9 @@ GENERATE DUMMY DATA (PAGES OR POST TYPES):
 	wp post meta list ${post_id}
 	wp post meta add key=example value=”Example value”
 
+REGENERATE ALL THUMBNAILS:
+	wp media regenerate --yes
+
 
 CHANGING POST OR PAGE TEMPLATE:
 	wp post update 4 --page_template='new-home.php'
