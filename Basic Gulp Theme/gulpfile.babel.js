@@ -193,7 +193,24 @@ export const pot = () => {
 // TASK: Replacing "sitename_theme_dev" with "sitename_theme"
 // and "Sitename Theme Dev" with "Sitename Theme"
 export const replaceDevString = () => {
-    const capitalizedName = (info.name).charAt(0).toUpperCase() + (info.name).slice(1);
+
+    let capitalizedName;
+
+    // if double-word Name (like Serial Awards)
+    if((info.name).includes("-")) {
+        const nameArray = (info.name).split("-");
+        const newNameArray = [];
+
+        nameArray.forEach((singleWord) => {
+            newNameArray.push(singleWord.charAt(0).toUpperCase() + singleWord.slice(1));
+        });
+
+        capitalizedName = newNameArray.join(" ");
+    }
+
+    else {
+        capitalizedName = (info.name).charAt(0).toUpperCase() + (info.name).slice(1);
+    }
 
     return src("**/*.{php,scss,css}")
     .pipe(replace(`${info.name}_theme_dev`, `${info.name}_theme`))
