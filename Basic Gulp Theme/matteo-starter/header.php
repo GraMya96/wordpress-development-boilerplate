@@ -9,4 +9,4 @@
 </head>
 
 <body <?php body_class(); ?>>
-	<?php include( locate_template('template_parts/main-menu.php') );
+	<?php include( locate_template('template-parts/main-menu.php') );
