@@ -2,9 +2,9 @@
 
 1) Copy, Edit and Run wp-setup.sh into the empty root of a New WP Project (es. htdocs/new-site)
 
-2) If NOT starting with _s (Underscore Theme):
+2) If NOT starting with _s (Underscore Theme - https://underscores.me/):
     - Copy the content of Basic Gulp Theme/base-starter into ${sitename}_theme_dev
-    If starting with _s (Underscore Theme):
+    If starting with _s (Underscore Theme - https://underscores.me/):
     - Copy the content of Basic Gulp Theme/underscore-starter into ${sitename}_theme_dev
 
 3) Replace all strings "sitename" and "stnm" with actual Website Name & Prefix in package.json and package-lock.json
