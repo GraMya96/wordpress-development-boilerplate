@@ -8,21 +8,16 @@ import concat from 'gulp-concat';
 import sourcemaps from 'gulp-sourcemaps';
 import autoprefixer from 'autoprefixer';
 import imagemin from 'gulp-imagemin';
-// import rename from 'gulp-rename';
 import del from 'del';
-// import webpack from 'webpack-stream';
 import uglify from "gulp-uglify"
-// import named from 'vinyl-named';
 import browserSync from "browser-sync";
 import replace from "gulp-replace"
 import wpPot from "gulp-wp-pot";
 import info from "./package.json";
-// import zip from "gulp-zip";
 
 const PRODUCTION = yargs.argv.prod;
 
-
-// TASK: Creating a server with Browser-sync & Enabling Auto-reloading
+/* TASK: Creating a server with Browser-sync & Enabling Auto-reloading */
 const server = browserSync.create();
 export const serve = done => {
     server.init({
@@ -38,7 +33,7 @@ export const reload = done => {
 
 
 
-// TASK: Deleting dist folder
+/* TASK: Deleting dist folder */
 export const deleteDistFolder = () => {
     return del(['dist']);
 }
@@ -46,7 +41,7 @@ export const deleteDistFolder = () => {
 
 
 
-// TASK: Deleting development theme folder
+/* TASK: Deleting development theme folder */
 export const deleteDevTheme = () => {
     return gulpif(PRODUCTION, del(
         [`../${info.name}_theme`],
@@ -57,10 +52,10 @@ export const deleteDevTheme = () => {
 
 
 
-// TASK: Handling Styles:
-// - handleSass: converting scss files and moving them into the src/css folder;
-// - handleCss: moving all the files from the src/css folder to the dist/css folder
-//      and then Merging them into one file (style.css, needed for theme funcs)
+/* TASK: Handling Styles:
+ - handleSass: converting scss files and moving them into the src/css folder;
+ - handleCss: moving all the files from the src/css folder to the dist/css folder
+      and then Merging them into one file (style.css, needed for theme funcs) */
 export const handleSass = () => {
     return src([
         'src/sass/**/*.scss'
@@ -88,7 +83,7 @@ export const handleCss = () => {
 
 
 
-// TASK: Optimizing Images and moving them from src to dist folder
+/* TASK: Optimizing Images and moving them from src to dist folder */
 export const images = () => {
     return src('src/img/**/*.{jpg,jpeg,png,svg,gif}')
     .pipe(gulpif(PRODUCTION, imagemin()))
@@ -98,7 +93,7 @@ export const images = () => {
 
 
 
-// TASK: Copying all src content (not img/css/js folders) into dist folder
+/* TASK: Copying all src content (not img/css/js folders) into dist folder */
 export const copy = () => {
     return src(['src/**/*','!src/{img,js,css,sass}','!src/{img,js,css,sass}/**/*'])
     .pipe(dest('dist'));
@@ -106,38 +101,39 @@ export const copy = () => {
 // ------------------------------------------------
 
 
-// TASK: Bundling all JS files with Webpack
-// export const webpackBundling = () => {
-//     return src([
-//         'src/js/bundle.js',
-//     ])
-//     .pipe(named())
-//     .pipe(webpack({
-//         module: {
-//             rules: [
-//                 {
-//                     test: /\.js$/,
-//                     use: {
-//                         loader: 'babel-loader',
-//                         options: {
-//                             presets: ['@babel/preset-env']
-//                         }
-//                     }
-//                 }
-//             ]
-//         },
-//         mode: PRODUCTION ? 'production' : 'development',
-//         devtool: !PRODUCTION ? 'inline-source-map' : false,
-//         output: {
-//             filename: '[name].js'
-//         }
-//     }))
-//     .pipe(dest('dist/js'));
-// }
+/* TASK: Bundling all JS files with Webpack
+export const webpackBundling = () => {
+    return src([
+        'src/js/bundle.js',
+    ])
+    .pipe(named())
+    .pipe(webpack({
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    use: {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env']
+                        }
+                    }
+                }
+            ]
+        },
+        mode: PRODUCTION ? 'production' : 'development',
+        devtool: !PRODUCTION ? 'inline-source-map' : false,
+        output: {
+            filename: '[name].js'
+        }
+    }))
+    .pipe(dest('dist/js'));
+} */
 // ------------------------------------------------
 
 
 
+/* TASK: Concatenating JS files into main.min.js */
 export const concatenateJs = () => {
     return src([
         'src/js/**/*.js'
@@ -151,7 +147,7 @@ export const concatenateJs = () => {
 
 
 
-// TASK: Preparing package for deployment (excluding unnecessary files)
+/* TASK: Preparing package for deployment (excluding unnecessary files) */
 export const createProductionTheme = () => {
     return src([
     "**/*",
@@ -167,18 +163,12 @@ export const createProductionTheme = () => {
     "!package-lock.json",
     "!wp-cli.txt",
     ])
-    // .pipe(
-    //     gulpif(
-    //         file => file.relative.split(".").pop() !== "zip",
-    //         replace("_themename", info.name)
-    //     )
-    // )
     .pipe(dest(`../${info.name}_theme`));
 };
 // ------------------------------------------------
 
 
-// TASK: Creating a .pot file for translations
+/* TASK: Creating a .pot file for translations */
 export const pot = () => {
     return src("**/*.php")
     .pipe(
@@ -191,8 +181,8 @@ export const pot = () => {
 };
 // ------------------------------------------------
 
-// TASK: Replacing "underscore-starter" with "sitename_theme_dev"
-// if we are using _s starter theme
+/* TASK: Replacing "underscore-starter" with "sitename_theme_dev"
+ if we are using _s starter theme */
 export const replaceUnderscoreString = () => {
 
     const esc_name = (info.name).replace('-', '_').replace('-', '_');
@@ -205,13 +195,13 @@ export const replaceUnderscoreString = () => {
 // ------------------------------------------------
 
 
-// TASK: Replacing "sitename_theme_dev" with "sitename_theme"
-// and "Sitename Theme Dev" with "Sitename Theme"
+/* TASK: Replacing "sitename_theme_dev" with "sitename_theme"
+    and "Sitename Theme Dev" with "Sitename Theme" */
 export const replaceDevString = () => {
 
     let capitalizedName;
 
-    // if double-word Name (like Serial Awards)
+    /* if double-word Name (like Sitename Example) */
     if((info.name).includes("-")) {
         const nameArray = (info.name).split("-");
         const newNameArray = [];
@@ -235,7 +225,7 @@ export const replaceDevString = () => {
 // ------------------------------------------------
 
 
-// TASK: Watch for Changes in any file
+/* TASK: Watch for Changes in any file */
 export const watchForChanges = () => {
     watch('src/sass/**/*.scss', series(handleSass, handleCss));
     watch('src/img/**/*.{jpg,jpeg,png,svg,gif}', series(images, reload));

@@ -4,8 +4,8 @@ EDIT wp_options TABLE DATA:
 	wp option get siteurl
 
 CREATE CPT or TAXONOMY:
-	wp scaffold post-type yachts --label=Yachts --theme=leopard_theme_dev
-	wp scaffold taxonomy broadcaster --post_types=serie-tv --theme=serial-awards_theme_dev
+	wp scaffold post-type example --label=Example --theme=sitename_theme_dev
+	wp scaffold taxonomy tax_name --post_types=example --theme=sitename_theme_dev
 
 
 GENERATE DUMMY DATA (PAGES OR POST TYPES):
@@ -13,9 +13,9 @@ GENERATE DUMMY DATA (PAGES OR POST TYPES):
 	wp term generate esempio-taxonomy --count=12
 	wp post generate --count=5 --post_type=esempio --post_date=yyyy-mm-dd
 	wp post update <id> --post_content="Post content Example"
-	wp post list --term=category-1 --post_status=publish 
-	wp post delete <id> --force (con --force si salta il passaggio del cestino)
-	wp post delete $(wp post list --post_type=news --format=ids) --force → cancellare tutti i post type “news”
+	wp post list --term=category-1 --post_status=publish
+	wp post delete <id> --force
+	wp post delete $(wp post list --post_type=news --format=ids) --force → delete all "news" post types
 	wp post meta list ${post_id}
 	wp post meta add key=example value=”Example value”
 
@@ -27,24 +27,23 @@ CHANGING POST OR PAGE TEMPLATE:
 	wp post update 4 --page_template='new-home.php'
 
 
-PLUGINS: 
+PLUGINS:
 	wp plugin list
 	wp plugin install advanced-custom-fields jetpack ninja-forms --activate
 	wp plugin search searchterm
 	wp plugin deactivate wordpress-seo
-	wp plugin deactivate --all 
-
+	wp plugin deactivate --all
 	wp plugin list --skip plugins
-
 	wp plugin status
 	wp plugin update wordpress-seo
-	wp plugin update – all
+	wp plugin update –-all
+
 
 IMPORT/EXPORT DATABASE:
 	wp search-replace “http://www.esempio.com” “https://www.esempio.com”
-	wp search-replace “esempio_theme_dev” “esempio_theme”
-	wp db export 
-	wp db import file.sql 
+	wp search-replace sitename_theme_dev” sitename_theme”
+	wp db export
+	wp db import file.sql
 
 
 config.php FILE:
@@ -57,7 +56,7 @@ CORE UPDATE:
 
 USERS:
 	wp user list
-	wp user reset-password username 
+	wp user reset-password username
 
 
 WP CRON:

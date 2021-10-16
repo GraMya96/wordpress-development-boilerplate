@@ -7,7 +7,7 @@
 # ------------------------------------
 
 # Variables:
-db_name="example_db"
+db_name="${sitename}_db"
 db_username="root"
 db_pass=""
 db_prefix="exmp_"
@@ -15,9 +15,9 @@ default_port="3307"
 hostname="127.0.0.1:${default_port}"
 sitename="example"
 website_url="https://localhost/${sitename}"
-wp_admin_user="gramya96"
+wp_admin_user="username_example"
 wp_admin_pass="password_example"
-wp_admin_email="mgramegnatota@gmail.com"
+wp_admin_email="example@mail.com"
 PLUGINS_TO_INSTALL[0]="seo-by-rank-math"
 PLUGINS_TO_INSTALL[1]="advanced-custom-fields"
 PLUGINS_TO_INSTALL[2]="all-in-one-wp-security-and-firewall"
