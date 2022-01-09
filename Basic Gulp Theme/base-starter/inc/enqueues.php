@@ -7,11 +7,11 @@ function theme_styles() {
 	$pluginsurl = plugins_url();
 
         // CSS
-        wp_register_style('main-style', get_template_directory_uri() . '/style.css', array(), $version, 'all');
+        wp_register_style('main-style', get_template_directory_uri() . '/style.css', array(), 'all');
         wp_enqueue_style('main-style');
 
         // JS
-        wp_enqueue_script('main-js', get_template_directory_uri() . '/main.min.js', array(), $version, true);
+        wp_enqueue_script('main-js', get_template_directory_uri() . '/main.min.js', array(), true);
 }
 
 // Add menu navigation in "Appareance"

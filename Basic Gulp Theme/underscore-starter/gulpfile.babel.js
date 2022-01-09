@@ -6,8 +6,10 @@ import gulpif from 'gulp-if';
 import postcss from 'gulp-postcss';
 import concat from 'gulp-concat';
 import sourcemaps from 'gulp-sourcemaps';
+import named from 'vinyl-named';
 import autoprefixer from 'autoprefixer';
 import imagemin from 'gulp-imagemin';
+import webpack from 'webpack-stream';
 import del from 'del';
 import uglify from "gulp-uglify"
 import browserSync from "browser-sync";
@@ -101,10 +103,12 @@ export const copy = () => {
 // ------------------------------------------------
 
 
-/* TASK: Bundling all JS files with Webpack
+/* TASK: Bundling all JS files into one and compiling
+    all the code into ES5 using respectively webpack and its loader
+    babel-loader (@babel/preset-env package as 'presets of rules') */
 export const webpackBundling = () => {
     return src([
-        'src/js/bundle.js',
+        'src/js/**/*.js',
     ])
     .pipe(named())
     .pipe(webpack({
@@ -127,21 +131,10 @@ export const webpackBundling = () => {
             filename: '[name].js'
         }
     }))
-    .pipe(dest('dist/js'));
-} */
-// ------------------------------------------------
-
-
-
-/* TASK: Concatenating JS files into main.min.js */
-export const concatenateJs = () => {
-    return src([
-        'src/js/**/*.js'
-    ])
-        .pipe(dest('dist/js'))
-        .pipe(gulpif(PRODUCTION, uglify()))
-        .pipe(concat('main.min.js'))
-        .pipe(dest('./'));
+    .pipe(dest('dist/js'))
+    .pipe(gulpif(PRODUCTION, uglify()))
+    .pipe(concat('main.min.js'))
+    .pipe(dest('./'));
 }
 // ------------------------------------------------
 
@@ -230,12 +223,12 @@ export const watchForChanges = () => {
     watch('src/sass/**/*.scss', series(handleSass, handleCss));
     watch('src/img/**/*.{jpg,jpeg,png,svg,gif}', series(images, reload));
     watch(['src/**/*','!src/{img,js,css,sass}','!src/{img,js,css,sass}/**/*'], series(copy, reload));
-    watch('src/js/**/*.js', series(/*webpackBundling */ concatenateJs, reload));
+    watch('src/js/**/*.js', series(webpackBundling, reload));
     watch("**/*.php", reload);
 }
 // ------------------------------------------------
 
 
-export const dev = series(deleteDistFolder, parallel(handleSass, handleCss, concatenateJs, images, copy), serve, replaceUnderscoreString, watchForChanges);
-export const build = series(deleteDistFolder, parallel(handleSass, handleCss, concatenateJs, images, copy), pot, deleteDevTheme, createProductionTheme, replaceDevString);
+export const dev = series(deleteDistFolder, parallel(handleSass, handleCss, images, copy), serve, replaceUnderscoreString, watchForChanges);
+export const build = series(deleteDistFolder, parallel(handleSass, handleCss, webpackBundling, images, copy), pot, deleteDevTheme, createProductionTheme, replaceDevString);
 export default dev;
