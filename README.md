@@ -1,4 +1,4 @@
--------------------------
+------------------------------
 
 1) Copy, Edit and Run wp-setup.sh into the empty root of a New WP Project (es. htdocs/new-site)
 
@@ -21,4 +21,13 @@
 
 8) Have fun! ;)
 
--------------------------
+---------------
+
+If you want to use Tailpress (Tailwind CSS Theme Boilerplate by Jeffrey van Rossum - https://github.com/jeffreyvr/tailpress),
+	inside the tailpress theme directory:
+	
+	1) Run npm install
+	
+	2) Run npm run watch to start developing
+
+------------------------------
