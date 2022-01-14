@@ -23,11 +23,10 @@
 
 ---------------
 
-If you want to use Tailpress (Tailwind CSS Theme Boilerplate by Jeffrey van Rossum - https://github.com/jeffreyvr/tailpress),
-	inside the tailpress theme directory:
-	
+If you want to use Tailpress (Tailwind CSS Theme Boilerplate by Jeffrey van Rossum - https://github.com/jeffreyvr/tailpress), inside the tailpress theme directory:
+
 	1) Run npm install
-	
+
 	2) Run npm run watch to start developing
 
 ------------------------------
