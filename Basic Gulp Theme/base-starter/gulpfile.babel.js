@@ -144,14 +144,13 @@ export const createProductionTheme = () => {
     return src([
     "**/*",
     "!node_modules{,/**}",
-    "!bundled{,/**}",
     "!src{,/**}",
     "!.babelrc",
     "!.gitignore",
     "!gulpfile.babel.js",
     "!package.json",
     "!package-lock.json",
-    "!wp-cli.txt",
+    "!wp-cli_main-commands.txt",
     ])
     .pipe(dest(`../${info.name}_theme`));
 };

@@ -27,6 +27,8 @@ If you want to use Tailpress (Tailwind CSS Theme Boilerplate by Jeffrey van Ross
 
 	1) Run npm install
 
-	2) Run npm run watch to start developing
+    2) If needed, run npm run development
+
+	3) Run npm run watch to start developing
 
 ------------------------------
