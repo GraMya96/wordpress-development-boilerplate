@@ -46,7 +46,7 @@ export const deleteDistFolder = () => {
 // TASK: Deleting development theme folder
 export const deleteDevTheme = () => {
     return gulpif(PRODUCTION, del(
-        [`../${info.name}_theme`],
+        [`../${info.name}-theme`],
         { force: true }
     ));
 }
@@ -152,7 +152,7 @@ export const createProductionTheme = () => {
     "!package-lock.json",
     "!wp-cli_main-commands.txt",
     ])
-    .pipe(dest(`../${info.name}_theme`));
+    .pipe(dest(`../${info.name}-theme`));
 };
 // ------------------------------------------------
 
@@ -171,7 +171,7 @@ export const pot = () => {
 // ------------------------------------------------
 
 
-/* TASK: Replacing "sitename_theme_dev" with "sitename_theme"
+/* TASK: Replacing "sitename-theme-dev" with "sitename-theme"
     and "Sitename Theme Dev" with "Sitename Theme" */
 export const replaceDevString = () => {
 
@@ -194,9 +194,9 @@ export const replaceDevString = () => {
     }
 
     return src("**/*.{php,scss,css}")
-    .pipe(replace(`${info.name}_theme_dev`, `${info.name}_theme`))
+    .pipe(replace(`${info.name}-theme-dev`, `${info.name}-theme`))
     .pipe(replace(`${capitalizedName} Theme Dev`, `${capitalizedName} Theme`))
-    .pipe(dest(`../${info.name}_theme`));
+    .pipe(dest(`../${info.name}-theme`));
 };
 // ------------------------------------------------
 

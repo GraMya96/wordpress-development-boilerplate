@@ -11,7 +11,7 @@
 3) Replace all strings "sitename" and "stnm" with actual Website Name & Prefix in package.json and package-lock.json
     (for double/triple worded names, use dashes. eg. new-site)
 
-4) Replace "example" and "exmp" with actual Theme Name & Text Domain in theme_dev sass/base.scss
+4) Replace "sitename" and "stnm" with actual Theme Name & Text Domain in theme_dev sass/base.scss
 
 5) npm install --> Install all packages declared in package.json
 

@@ -1,3 +1,5 @@
+/* Use with Local by Flywheel */
+
 import { src, dest, watch, series, parallel } from 'gulp';
 import yargs from 'yargs';
 import sass from 'gulp-sass';
@@ -46,7 +48,7 @@ export const deleteDistFolder = () => {
 /* TASK: Deleting development theme folder */
 export const deleteDevTheme = () => {
     return gulpif(PRODUCTION, del(
-        [`../${info.name}_theme`],
+        [`../${info.name}-theme`],
         { force: true }
     ));
 }
@@ -155,7 +157,7 @@ export const createProductionTheme = () => {
     "!package-lock.json",
     "!wp-cli_main-commands.txt",
     ])
-    .pipe(dest(`../${info.name}_theme`));
+    .pipe(dest(`../${info.name}-theme`));
 };
 // ------------------------------------------------
 
@@ -177,12 +179,12 @@ export const pot = () => {
  if we are using _s starter theme */
 export const replaceUnderscoreString = () => {
 
-    const esc_name = (info.name).replace('-', '_').replace('-', '_');
+    //const esc_name = (info.name).replace('-', '_').replace('-', '_');
 
     return src("**/*.{php,scss,css}")
-    .pipe(replace(`underscore-starter`, `${info.name}_theme_dev`))
-    .pipe(replace(`underscore_starter`, `${esc_name}_theme_dev`))
-    .pipe(dest(`../${info.name}_theme_dev`));
+    .pipe(replace(`underscore-starter`, `${info.name}-theme-dev`))
+    .pipe(replace(`underscore_starter`, `${info.name}-theme-dev`))
+    .pipe(dest(`../${info.name}-theme-dev`));
 };
 // ------------------------------------------------
 
@@ -210,9 +212,9 @@ export const replaceDevString = () => {
     }
 
     return src("**/*.{php,scss,css}")
-    .pipe(replace(`${info.name}_theme_dev`, `${info.name}_theme`))
+    .pipe(replace(`${info.name}-theme-dev`, `${info.name}-theme`))
     .pipe(replace(`${capitalizedName} Theme Dev`, `${capitalizedName} Theme`))
-    .pipe(dest(`../${info.name}_theme`));
+    .pipe(dest(`../${info.name}-theme`));
 };
 // ------------------------------------------------
 
