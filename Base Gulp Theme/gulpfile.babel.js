@@ -87,7 +87,7 @@ export const handleCss = () => {
 export const handleTailwind = () => {
     return src([
         'src/css/base/tailwind.css'
-    ])
+    ], { allowEmpty: true })
     .pipe(postcss([ tailwindcss( tailwindOptions ) ]))
     .pipe(gulpif(PRODUCTION, postcss([ autoprefixer ])))
     .pipe(gulpif(PRODUCTION, cleanCss({compatibility:'ie8'})))
