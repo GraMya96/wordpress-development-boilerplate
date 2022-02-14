@@ -225,6 +225,6 @@ export const watchForChanges = () => {
 // ------------------------------------------------
 
 
-export const dev = series(deleteDistFolder, parallel( handleSass, handleCss, handleTailwind, images, copy), serve, watchForChanges);
+export const dev = series(deleteDistFolder, parallel( handleSass, handleCss, handleTailwind, webpackBundling, images, copy), serve, watchForChanges);
 export const build = series(deleteDistFolder, parallel( handleSass, handleCss, handleTailwind, webpackBundling, images, copy), pot, deleteDevTheme, createProductionTheme, replaceDevString);
 export default dev;

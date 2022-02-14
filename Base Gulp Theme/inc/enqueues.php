@@ -13,5 +13,5 @@ function theme_styles_and_scripts() {
         wp_enqueue_style('tailwind-css');
 
         // JS
-        wp_enqueue_script('main-js', get_template_directory_uri() . '/main.min.js', array(), true);
+        wp_enqueue_script('main-js', get_template_directory_uri() . '/main.min.js', array(), '', true);
 }
