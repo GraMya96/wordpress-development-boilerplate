@@ -45,7 +45,7 @@ sudo rm wp-config-sample.php
 # Create .gitignore file and include wp-config.php,
 # uploads folder and the Dev Environment theme in it:
 echo "wp-config.php
-wp-content/themes/${sitename}_theme_dev" > .gitignore
+wp-content/themes/${sitename}-theme-dev" > .gitignore
 
 # Create local DB based on wp-config.php data:
 sudo wp db create --allow-root
@@ -57,7 +57,7 @@ sudo wp core install --url=$website_url --title=${sitename^} --admin_user=$wp_ad
 wp theme delete --all
 
 # Create new Custom Theme:
-mkdir "wp-content/themes/${sitename}_theme_dev"
+mkdir "wp-content/themes/${sitename}-theme-dev"
 
 # Deactivate & Delete all default plugins and Install & Activate base needed Plugins:
 wp plugin deactivate --all
@@ -74,8 +74,8 @@ wp post create --post_title='404' --post_type=page --post_status=publish
 wp post create --post_title='Privacy Policy' --post_type=page --post_status=publish
 
 # If needed, create a CPT:
-wp scaffold post-type $custom_ps_slug --label=$custom_ps_label --theme=${sitename}"_theme_dev"
-# wp scaffold post-type $custom_ps_slug_2 --label=$custom_ps_label_2 --theme=${sitename}"_theme_dev"
+wp scaffold post-type $custom_ps_slug --label=$custom_ps_label --theme=${sitename}"-theme-dev"
+# wp scaffold post-type $custom_ps_slug_2 --label=$custom_ps_label_2 --theme=${sitename}"-theme-dev"
 
 # If needed, create Categories:
 # wp term create category "Media Partner"
