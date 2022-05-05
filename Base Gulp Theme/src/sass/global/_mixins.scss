@@ -4,7 +4,7 @@
 
 @mixin responsive($breakpoint) {
 
-    @if $breakpoint == xs { //up to 420px
+    @if $breakpoint == xxs { //up to 420px
         @media only screen and (max-width: 26.25em) {
             @content;
         }
@@ -30,6 +30,11 @@
 
     @if $breakpoint == lg { //up to 1199px
         @media only screen and (max-width: 74.94em) {
+            @content;
+        }
+    }
+    @if $breakpoint == xl { //up to 1350px
+        @media only screen and (max-width: 84.37em) {
             @content;
         }
     }
