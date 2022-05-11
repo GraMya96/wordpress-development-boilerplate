@@ -41,7 +41,7 @@ PLUGINS:
 
 IMPORT/EXPORT DATABASE:
 	wp search-replace “http://www.esempio.com” “https://www.esempio.com”
-	wp search-replace sitename-theme-dev” sitename-theme”
+	wp search-replace "sitename-theme-dev” sitename-theme”
 	wp db export
 	wp db import file.sql
 
