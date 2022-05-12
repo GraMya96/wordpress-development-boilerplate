@@ -7,6 +7,9 @@
 
 @import "../global/mixins.scss";
 
+* {
+    box-sizing: border-box;
+}
 
 body,
 html {
