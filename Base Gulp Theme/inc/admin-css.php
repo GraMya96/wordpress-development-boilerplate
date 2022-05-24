@@ -4,19 +4,22 @@ function my_custom_admin_css() {
   echo '<style>
     .acf-postbox[id*="acf-group"] {
         margin: 35px 0px;
-        box-shadow: 0px 0px 5px 1px rgba(0,0,0,.6);
+        box-shadow: 0px 0px 5px 1px rgba(0,0,0,.3);
+    }
+    div.postbox-header {
+        background-color: #fff;
     }
     .acf-postbox[id*="acf-group"] > div.postbox-header > h2 {
         text-transform: uppercase;
-        color: red !important;
-        font-size: 14px !important;
+        color: #000 !important;
+        font-size: .87rem !important;
     }
     .acf-postbox[id*="acf-group"] .acf-row-handle.order {
-        background: red;
+        background: #000;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
+        font-size: 1rem;
         color: #fff;
     }
     .acf-row-handle.order span {
@@ -27,11 +30,11 @@ function my_custom_admin_css() {
 
     .postbox.yoast.wpseo-metabox {
         margin: 40px 0px;
-        box-shadow: 0px 0px 7px 2px rgba(0,0,0,.6);
+        box-shadow: 0px 0px 5px 1px rgba(0,0,0,.3);
     }
     .postbox.yoast.wpseo-metabox h2 {
         text-transform: uppercase;
-        color: red !important;
+        color: #000 !important;
     }
     .edit-post-layout__metaboxes:not(:empty) .edit-post-meta-boxes-area {
         margin: auto 0px !important;
