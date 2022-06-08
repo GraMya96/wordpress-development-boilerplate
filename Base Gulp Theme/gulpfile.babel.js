@@ -100,9 +100,11 @@ export const copy = () => {
 };
 // ------------------------------------------------
 
-/* TASK: Bundling all JS files into one and compiling
+/* TASK: Bundling all JS files and compiling
     all the code into ES5 using respectively webpack and its loader
-    babel-loader (@babel/preset-env package as 'presets of rules') */
+    babel-loader (@babel/preset-env package as 'presets of rules').
+	With this configuration, we are NOT concatenating all js files into
+	one main.min.js file */
 export const webpackBundling = () => {
 	return src(['src/js/**/*.js'])
 		.pipe(named())
