@@ -1,12 +1,8 @@
 <?php
-/**
- * Template Name: 404
-*/
-
 get_header();
 ?>
 
-<section class="mid">
+<section>
 	Page 404
 </section>
 

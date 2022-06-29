@@ -38,17 +38,20 @@ export const reload = (done) => {
 };
 // ------------------------------------------------
 
+
 /* TASK: Deleting dist folder */
 export const deleteDistFolder = () => {
 	return del(['dist']);
 };
 // ------------------------------------------------
 
+
 /* TASK: Deleting development theme folder */
 export const deleteDevTheme = () => {
 	return gulpif(PRODUCTION, del([`../${info.name}-theme`], { force: true }));
 };
 // ------------------------------------------------
+
 
 /* TASK: Handling Styles:
  - handleSass: converting scss files and moving them into the src/css folder;
@@ -82,6 +85,7 @@ export const handleTailwind = () => {
 };
 // ------------------------------------------------
 
+
 /* TASK: Optimizing Images and moving them from src to dist folder */
 export const images = () => {
 	return src('src/img/**/*.{jpg,jpeg,png,svg,gif}')
@@ -89,6 +93,7 @@ export const images = () => {
 		.pipe(dest('dist/img'));
 };
 // ------------------------------------------------
+
 
 /* TASK: Copying all src content (not img/css/js folders) into dist folder */
 export const copy = () => {
@@ -99,6 +104,7 @@ export const copy = () => {
 	]).pipe(dest('dist'));
 };
 // ------------------------------------------------
+
 
 /* TASK: Bundling all JS files and compiling
     all the code into ES5 using respectively webpack and its loader
@@ -139,6 +145,7 @@ export const webpackBundling = () => {
 };
 // ------------------------------------------------
 
+
 /* TASK: Preparing package for deployment (excluding unnecessary files) */
 export const createProductionTheme = () => {
 	return src([
@@ -163,6 +170,7 @@ export const deleteSrcAndModulesOnProductionTheme = () => {
 };
 // ------------------------------------------------
 
+
 /* TASK: Creating a .pot file for translations */
 export const pot = () => {
 	return src('**/*.php')
@@ -175,6 +183,7 @@ export const pot = () => {
 		.pipe(dest(`languages/${info.prefix}.pot`));
 };
 // ------------------------------------------------
+
 
 /* TASK: Replacing "sitename-theme-dev" with "sitename-theme"
     and "Sitename Theme Dev" with "Sitename Theme" */
@@ -204,6 +213,7 @@ export const replaceDevString = () => {
 };
 // ------------------------------------------------
 
+
 /* TASK: Watch for Changes in any file */
 export const watchForChanges = () => {
 	watch('src/sass/**/*.scss', series(handleSass, handleCss));
@@ -219,6 +229,7 @@ export const watchForChanges = () => {
 	);
 };
 // ------------------------------------------------
+
 
 export const dev = series(
 	deleteDistFolder,

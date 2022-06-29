@@ -5,16 +5,16 @@
 
 add_action('acf/init', 'my_acf_op_init');
 function my_acf_op_init() {
-    if(function_exists('acf_add_options_page')) {
-        $dati_di_contatto = acf_add_options_page(array(
-            'page_title' 	=> 'Dati di Contatto',
-            'menu_title'	=> 'Dati di Contatto',
-            'menu_slug' 	=> 'dati_di_contatto',
+    if( function_exists('acf_add_options_page') ) {
+        $contact_data = acf_add_options_page(array(
+            'page_title' 	=> 'Contact Data',
+            'menu_title'	=> 'Contact Data',
+            'menu_slug' 	=> 'contact_data',
             'capability'	=> 'edit_posts',
             'icon_url'      => 'dashicons-images-alt2',
             'redirect'		=> false
         ));
-        $header_e_footer_opzioni = acf_add_options_page(array(
+        $header_and_footer_options = acf_add_options_page(array(
             'page_title' 	=> 'Header & Footer',
             'menu_title'	=> 'Header & Footer',
             'menu_slug' 	=> 'header_&_footer',
@@ -22,13 +22,13 @@ function my_acf_op_init() {
             'icon_url'      => 'dashicons-editor-code'
         ));
         acf_add_options_sub_page(array(
-            'page_title' 	=> 'Impostazioni Header',
+            'page_title' 	=> 'Header Settings',
             'menu_title'	=> 'Header',
             'capability'	=> 'edit_posts',
             'parent_slug'	=> 'header_&_footer'
         ));
         acf_add_options_sub_page(array(
-            'page_title' 	=> 'Impostazioni Footer',
+            'page_title' 	=> 'Footer Settings',
             'menu_title'	=> 'Footer',
             'capability'	=> 'edit_posts',
             'parent_slug'	=> 'header_&_footer'

@@ -56,12 +56,12 @@ function get_alt_text( $post_block ) {
 		$alt = get_post_meta ( get_post_thumbnail_id( $post_block->ID ), '_wp_attachment_image_alt', true );
 	}
 
-	if( is_array( $post_block ) )  { //ACF field
-		if( $post_block[ 'type' ] === 'image' ) { //$post_block = get_field( $acf_array_img )
+	if( is_array( $post_block ) )  { // ACF field
+		if( $post_block[ 'type' ] === 'image' ) { // $post_block = get_field( $acf_array_img )
 			$alt = $post_block[ 'alt' ];
 		}
 		else {
-			$alt = $post_block[ 'image' ][ 'alt' ]; //$post_block = $single_block_array (repeater single block)
+			$alt = $post_block[ 'image' ][ 'alt' ]; // $post_block = $single_block_array (repeater single block)
 		}
 	}
 
