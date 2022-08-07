@@ -68,6 +68,31 @@ function get_alt_text( $post_block ) {
 	return __( esc_html( $alt ), 'lprd' );
 }
 
+/**
+* Get Translated Post by its id
+*/
+function get_translated_post_id( $chosen_post ) {
+	$current_lang = ICL_LANGUAGE_CODE;
+	$translated_id = apply_filters(
+		'wpml_object_id',
+		$chosen_post->ID,
+		$chosen_post->post_name,
+		false,
+		$current_lang );
+	return $translated_id;
+}
+
+/**
+* Get substring between two strings of characters
+*/
+function get_string_between( $string, $start, $end ){
+    $string = ' ' . $string;
+    $ini = strpos( $string, $start );
+    if ( $ini == 0 ) return '';
+    $ini += strlen( $start );
+    $len = strpos( $string, $end, $ini ) - $ini;
+    return substr( $string, $ini, $len );
+}
 
 
 /**

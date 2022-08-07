@@ -16,8 +16,6 @@ import replace from 'gulp-replace';
 import webpack from 'webpack-stream';
 import wpPot from 'gulp-wp-pot';
 import info from './package.json';
-import tailwindcss from 'tailwindcss';
-import tailwindOptions from './tailwind.config.js';
 
 const PRODUCTION = yargs.argv.prod;
 
@@ -38,13 +36,11 @@ export const reload = (done) => {
 };
 // ------------------------------------------------
 
-
 /* TASK: Deleting dist folder */
 export const deleteDistFolder = () => {
 	return del(['dist']);
 };
 // ------------------------------------------------
-
 
 /* TASK: Deleting development theme folder */
 export const deleteDevTheme = () => {
@@ -52,39 +48,31 @@ export const deleteDevTheme = () => {
 };
 // ------------------------------------------------
 
-
 /* TASK: Handling Styles:
- - handleSass: converting scss files and moving them into the src/css folder;
- - handleCss: moving all the files from the src/css folder to the dist/css folder
-      and then Merging them into one file (style.css, needed for theme funcs) */
-export const handleSass = () => {
-	return src(['src/sass/**/*.scss'])
+ - handleCss: compiling .scss files and moving them into the dist/css folder,
+	to be included conditionally in inc/enqueues.php
+ - handleIndexCss: compiling index.scss file into index.css, including
+ 	Wordpress Theme info (name, author etc.) and global styles */
+export const handleCss = () => {
+	return src(['src/sass/page-templates/*.scss'])
 		.pipe(gulpif(!PRODUCTION, sourcemaps.init())) /* only in dev mode */
 		.pipe(sass().on('error', sass.logError))
-		.pipe(gulpif(!PRODUCTION, sourcemaps.write()))
-		.pipe(dest('src/css/'))
-		.pipe(server.stream());
-};
-export const handleCss = () => {
-	return src(['src/css/**/*.css', '!src/css/base/tailwind.css'])
-		.pipe(gulpif(!PRODUCTION, sourcemaps.init()))
 		.pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
 		.pipe(gulpif(PRODUCTION, cleanCss({ compatibility: 'ie8' })))
 		.pipe(gulpif(!PRODUCTION, sourcemaps.write()))
-		.pipe(dest('dist/css'))
+		.pipe(dest('dist/css/'))
+		.pipe(server.stream());
+};
+export const handleIndexCss = () => {
+	return src(['src/sass/index.scss'])
+		.pipe(sass().on('error', sass.logError))
+		.pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
+		.pipe(gulpif(PRODUCTION, cleanCss({ compatibility: 'ie8' })))
 		.pipe(concat('style.css'))
 		.pipe(dest('./'))
 		.pipe(server.stream());
 };
-export const handleTailwind = () => {
-	return src(['src/css/base/tailwind.css'], { allowEmpty: true })
-		.pipe(postcss([tailwindcss(tailwindOptions)]))
-		.pipe(gulpif(PRODUCTION, postcss([autoprefixer])))
-		.pipe(gulpif(PRODUCTION, cleanCss({ compatibility: 'ie8' })))
-		.pipe(dest('dist/css/base'));
-};
 // ------------------------------------------------
-
 
 /* TASK: Optimizing Images and moving them from src to dist folder */
 export const images = () => {
@@ -93,7 +81,6 @@ export const images = () => {
 		.pipe(dest('dist/img'));
 };
 // ------------------------------------------------
-
 
 /* TASK: Copying all src content (not img/css/js folders) into dist folder */
 export const copy = () => {
@@ -104,7 +91,6 @@ export const copy = () => {
 	]).pipe(dest('dist'));
 };
 // ------------------------------------------------
-
 
 /* TASK: Bundling all JS files and compiling
     all the code into ES5 using respectively webpack and its loader
@@ -132,7 +118,6 @@ export const webpackBundling = () => {
 				resolve: {
 					extensions: ['.js'],
 				},
-				// target: ['web', 'es5'], not reading arrow functions
 				mode: PRODUCTION ? 'production' : 'development',
 				devtool: !PRODUCTION ? 'inline-source-map' : false,
 				output: {
@@ -145,7 +130,6 @@ export const webpackBundling = () => {
 };
 // ------------------------------------------------
 
-
 /* TASK: Preparing package for deployment (excluding unnecessary files) */
 export const createProductionTheme = () => {
 	return src([
@@ -153,7 +137,6 @@ export const createProductionTheme = () => {
 		'!.babelrc',
 		'!.gitignore',
 		'!gulpfile.babel.js',
-		'!tailwind.config.js',
 		'!package.json',
 		'!package-lock.json',
 		'!wp-cli_main-commands.txt',
@@ -170,7 +153,6 @@ export const deleteSrcAndModulesOnProductionTheme = () => {
 };
 // ------------------------------------------------
 
-
 /* TASK: Creating a .pot file for translations */
 export const pot = () => {
 	return src('**/*.php')
@@ -183,7 +165,6 @@ export const pot = () => {
 		.pipe(dest(`languages/${info.prefix}.pot`));
 };
 // ------------------------------------------------
-
 
 /* TASK: Replacing "sitename-theme-dev" with "sitename-theme"
     and "Sitename Theme Dev" with "Sitename Theme" */
@@ -213,47 +194,28 @@ export const replaceDevString = () => {
 };
 // ------------------------------------------------
 
-
 /* TASK: Watch for Changes in any file */
 export const watchForChanges = () => {
-	watch('src/sass/**/*.scss', series(handleSass, handleCss));
+	watch('src/sass/**/*.scss', series(handleCss, handleIndexCss));
 	watch('src/img/**/*.{jpg,jpeg,png,svg,gif}', series(images, reload));
 	watch(
 		['src/**/*', '!src/{img,js,css,sass}', '!src/{img,js,css,sass}/**/*'],
 		series(copy, reload)
 	);
 	watch('src/js/**/*.js', series(webpackBundling, reload));
-	watch(
-		['**/*.php', '!inc/**/*.php', '!inc/*.php'],
-		series(handleTailwind, reload)
-	);
+	watch(['**/*.php', '!inc/**/*.php', '!inc/*.php'], series(reload));
 };
 // ------------------------------------------------
 
-
 export const dev = series(
 	deleteDistFolder,
-	parallel(
-		handleSass,
-		handleCss,
-		handleTailwind,
-		webpackBundling,
-		images,
-		copy
-	),
+	parallel(handleCss, handleIndexCss, webpackBundling, images, copy),
 	serve,
 	watchForChanges
 );
 export const build = series(
 	deleteDistFolder,
-	parallel(
-		handleSass,
-		handleCss,
-		handleTailwind,
-		webpackBundling,
-		images,
-		copy
-	),
+	parallel(handleCss, handleIndexCss, webpackBundling, images, copy),
 	pot,
 	deleteDevTheme,
 	createProductionTheme,

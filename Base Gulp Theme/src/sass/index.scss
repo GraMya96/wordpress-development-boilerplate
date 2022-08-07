@@ -1,0 +1,12 @@
+@import './info/theme-info';
+/* theme-info.scss to be imported ALWAYS as first file, so
+ * that the info about the Wordpress theme will end up
+ * on top of the generated style.css file
+*/
+
+@import './base/global';
+/**
+ * All the other 'base' files, needed in all the website pages, are
+ * included in this _global.scss file, therefore we just need to import
+ * this one
+*/

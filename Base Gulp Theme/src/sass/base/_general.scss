@@ -1,11 +1,9 @@
-/*!
-* Theme Name: Sitename Theme Dev
-* Author: Matteo Gramegnatota
-* Version: 1.0
-* Text Domain: stnm
+/**
+ * General Classes
 */
 
-@import "../global/mixins.scss";
+@import "../abstracts/mixins";
+@import "../abstracts/variables";
 
 * {
     box-sizing: border-box;
@@ -19,12 +17,12 @@ html {
 }
 
 html {
-    font-size: 100%;
+    font-size: 92%;
     scroll-behavior: smooth;
     overflow-x: hidden;
 
     @include responsive(sm) {
-        font-size: 90.5%
+        font-size: 88%
     }
 }
 
@@ -33,6 +31,11 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -ms-interpolation-mode: nearest-neighbor;
+    font-family: "Lato", sans-serif;
+}
+
+select, option {
+    cursor: pointer;
 }
 
 .body-overflow-yH {

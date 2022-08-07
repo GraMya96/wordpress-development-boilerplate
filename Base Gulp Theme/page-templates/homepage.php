@@ -9,7 +9,7 @@ get_header();
 
 <main class="main">
 
-	<?php include( locate_template( 'template_parts/breadcrumb.php' ) ); ?>
+	<?php include( locate_template( '' ) ); ?>
 
 </main>
 

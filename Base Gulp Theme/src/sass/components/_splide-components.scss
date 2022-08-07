@@ -1,0 +1,20 @@
+/**
+ * Splide Components
+*/
+
+@import "../abstracts/variables";
+
+button.splide__pagination__page {
+    width: 10px;
+    transform: translateY(-12px);
+    height: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    margin: 2.7px;
+    background: $primary_yellow;
+
+    &.is-active {
+        background-color: #000;
+    }
+}
