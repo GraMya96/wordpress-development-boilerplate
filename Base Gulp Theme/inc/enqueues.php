@@ -11,9 +11,13 @@ function theme_styles_and_scripts() {
         wp_register_style( 'main-style', get_template_directory_uri() . '/style.css', array(), 'all' );
         wp_enqueue_style( 'main-style' );
 
-        // tailwind.css - remove if not needed
-        wp_register_style( 'tailwind-css', get_template_directory_uri() . '/dist/css/base/tailwind.css', array(), 'all' );
-        wp_enqueue_style( 'tailwind-css' );
+        // Registering all the Page Templates styles
+        wp_register_style( 'homepage', get_template_directory_uri() . '/dist/css/homepage.css', array(), 'all' );
+
+        // Enqueing all the Page Templates styles conditionally according to current template
+        if( is_front_page() ) { // Homepage
+            wp_enqueue_style( 'homepage' );
+        }
 
         /* JS */
 
