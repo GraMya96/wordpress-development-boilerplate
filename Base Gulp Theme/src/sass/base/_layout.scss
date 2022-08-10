@@ -5,3 +5,62 @@
 @import "../abstracts/mixins";
 @import "../abstracts/variables";
 
+.section {
+    padding-block: 2rem; // Use variable instead of 4rem
+
+    @include responsive_min(md) {
+        padding-block: 4rem;
+    }
+
+    &--secondary {
+        padding-block: 1.5rem;
+    }
+    &--tertiary {
+        padding-block: 1rem;
+    }
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+    max-width: 1440px; // Use variable instead of 1440px
+    padding: 0 15px; // Use variable instead of 15px
+}
+
+.container-fluid {
+    width: 100vw;
+    display: flex;
+}
+
+.grid {
+    display: grid;
+    row-gap: 2rem; // Use variable instead of 1rem
+    grid-template-columns: repeat(1, fr);
+
+    @include responsive_min(md) {
+        grid-template-columns: repeat(2, fr);
+
+        &--gap {
+            column-gap: 1.5rem; // Use variable instead of 1.5rem
+        }
+        &--gap-secondary {
+            column-gap: 2.5rem; // Use variable instead of 2.5rem
+        }
+    }
+    @include responsive_min(lg) {
+        grid-template-columns: repeat(3, fr);
+        row-gap: 2.5rem;
+    }
+}
+
+
+
+
+
+
+
+

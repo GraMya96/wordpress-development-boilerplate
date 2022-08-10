@@ -4,4 +4,35 @@
 
 @import "../abstracts/mixins";
 
+.paragraph {
 
+    &--secondary {
+
+    }
+    &--tertiary {
+
+    }
+}
+
+.title {
+
+    &--secondary {
+
+    }
+    &--tertiary {
+
+    }
+}
+
+.button {
+
+    &--secondary {
+
+    }
+    &--tertiary {
+
+    }
+    &--underline {
+        text-decoration: underline;
+    }
+}

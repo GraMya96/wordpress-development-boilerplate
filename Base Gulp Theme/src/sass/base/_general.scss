@@ -46,3 +46,20 @@ select, option {
     top: 32px!important;
 }
 
+:is(h1, h2, h3, h4, h5, h6) {
+    color: #000;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+p {
+    margin: 0;
+}
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+ul, ol {
+    padding-left: 0 !important;
+}
+
