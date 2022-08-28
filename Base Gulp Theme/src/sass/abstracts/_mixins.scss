@@ -1,80 +1,148 @@
 /**
-* Media Queries
+ * Px to Em (for Media Queries) and Px to Rem
 */
+$browser-context: 16; // Default
 
-@mixin responsive($breakpoint) {
+@function pxToEm($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}em;
+}
+@function pxToRem($pixels, $context: $browser-context) {
+    @return #{$pixels/$context}rem;
+}
 
-    @if $breakpoint == xxs { //up to 420px
-        @media only screen and (max-width: 26.25em) {
+
+/**
+ * Media Queries
+*/
+$breakpoints: (
+    'xxs': pxToEm(400),
+    "xs":  pxToEm(480),
+    "sm":  pxToEm(560),
+    "md":  pxToEm(768),
+    "lg":  pxToEm(1024),
+    "xl":  pxToEm(1248),
+    "xxl": pxToEm(1440)
+);
+@mixin mq($width, $type: min) {
+    @if map_has_key($breakpoints, $width) {
+
+        $width: map_get($breakpoints, $width);
+        @if $type == max {
+            $width: $width - pxToEm(1);
+        }
+        @media only screen and (#{$type}-width: $width) {
             @content;
         }
-    }
 
-    @if $breakpoint == xs { //up to 575px
-        @media only screen and (max-width: 35.94em) {
-            @content;
-        }
-    }
-
-    @if $breakpoint == sm { //up to 767px
-        @media only screen and (max-width: 47.94em) {
-            @content;
-        }
-    }
-
-    @if $breakpoint == md { //up to 991px
-        @media only screen and (max-width: 61.94em) {
-            @content;
-        }
-    }
-
-    @if $breakpoint == lg { //up to 1199px
-        @media only screen and (max-width: 74.94em) {
-            @content;
-        }
-    }
-    @if $breakpoint == xl { //up to 1350px
-        @media only screen and (max-width: 84.37em) {
-            @content;
-        }
     }
 }
 
-@mixin responsive_min($breakpoint) {
 
-    @if $breakpoint == xs { //from 0px
-        @media only screen and (min-width: 0em) {
-            @content;
-        }
-    }
-
-    @if $breakpoint == sm { //from 576px
-        @media only screen and (min-width: 36em) {
-            @content;
-        }
-    }
-
-    @if $breakpoint == md { //from 768px
-        @media only screen and (min-width: 48em) {
-            @content;
-        }
-    }
-
-    @if $breakpoint == lg { //from 992px
-        @media only screen and (min-width: 62em) {
-            @content;
-        }
-    }
-    @if $breakpoint == xl { //from 1200px
-        @media only screen and (min-width: 75em) {
-            @content;
-        }
-    }
-
-    @if $breakpoint == xxl { //from 1350px
-        @media only screen and (min-width: 84.37em) {
-            @content;
-        }
+/**
+ * Font-Face
+*/
+@mixin font-face($name, $file) {
+    @font-face {
+        font-family: "#{$name}";
+        src: url("../../../fonts/#{$file}.eot");
+        src: url("../../../fonts/#{$file}.eot?#iefix") format("embedded-opentype"),
+        url("../../../fonts/#{$file}.woff") format("woff"),
+        url("../../../fonts/#{$file}.ttf") format("truetype"),
+        url("../../../fonts/#{$file}.svg?#webfont") format("svg");
     }
 }
 
+
+/**
+ * Here is a great Sass mixin for supporting retina-ready images you can
+ * serve to Apple devices with a Retina Display. To use this mixin, you need
+ * to provide two versions of the same image, one in single size (1x) and one in double size (2x).
+ * You can use this mixin to provide a retina-ready background image for any HTML element.
+*/
+@mixin retina-image($image, $width, $height) {
+   @media (min--moz-device-pixel-ratio: 1.3),
+   (-o-min-device-pixel-ratio: 2.6/2),
+   (-webkit-min-device-pixel-ratio: 1.3),
+   (min-device-pixel-ratio: 1.3),
+   (min-resolution: 1.3dppx) {
+       background-image: url($image);
+       background-size: $width $height;
+   }
+}
+
+
+/**
+ * Absolute Positioning
+*/
+@mixin absolute($top, $right, $bottom, $left) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+ }
+
+
+/**
+ * Custom Arrow
+*/
+ @mixin arrow($direction: down, $size: 5px, $color: #000) {
+    width: 0;
+    height: 0;
+    @if ($direction == left) {
+       border-top: $size solid transparent;
+       border-bottom: $size solid transparent;
+       border-right: $size solid $color;
+    }
+    @else if ($direction == right) {
+       border-top: $size solid transparent;
+       border-bottom: $size solid transparent;
+       border-left: $size solid $color;
+    }
+    @else if ($direction == down) {
+       border-left: $size solid transparent;
+       border-right: $size solid transparent;
+       border-top: $size solid $color;
+    }
+    @else {
+       border-left: $size solid transparent;
+       border-right: $size solid transparent;
+       border-bottom: $size solid $color;
+    }
+}
+
+/**
+ * Custom Triangle
+*/
+@mixin css-triangle($color, $direction, $size: 6px, $position: absolute, $round: false){
+    @include pseudo($pos: $position);
+    width: 0;
+    height: 0;
+    @if $round {
+        border-radius: 3px;
+    }
+    @if ($direction == down) {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-top: $size solid $color;
+        margin-top: 0 - round( $size / 2.5 );
+    }
+    @else if ($direction == up) {
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: $size solid $color;
+        margin-bottom: 0 - round( $size / 2.5 );
+    }
+    @else if ($direction == right) {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left: $size solid $color;
+        margin-right: -$size;
+    }
+    @else if  ($direction == left) {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-right: $size solid $color;
+        margin-left: -$size;
+    }
+}

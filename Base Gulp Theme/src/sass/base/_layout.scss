@@ -6,17 +6,17 @@
 @import "../abstracts/variables";
 
 .section {
-    padding-block: 2rem; // Use variable instead of 4rem
+    padding-block: pxToRem(32); // Use variable instead of 32px
 
     @include responsive_min(md) {
-        padding-block: 4rem;
+        padding-block: pxToRem(64);
     }
 
     &--secondary {
-        padding-block: 1.5rem;
+        padding-block: pxToRem(24);
     }
     &--tertiary {
-        padding-block: 1rem;
+        padding-block: pxToRem(16);
     }
 }
 
@@ -27,8 +27,8 @@
     margin-right: auto;
     margin-left: auto;
     position: relative;
-    max-width: 1440px; // Use variable instead of 1440px
-    padding: 0 15px; // Use variable instead of 15px
+    max-width: pxToRem(1440); // Use variable instead of 1440px
+    padding: 0 pxToRem(15); // Use variable instead of 15px
 }
 
 .container-fluid {
@@ -38,17 +38,17 @@
 
 .grid {
     display: grid;
-    row-gap: 2rem; // Use variable instead of 1rem
+    row-gap: pxToRem(32); // Use variable instead of 32px
     grid-template-columns: repeat(1, fr);
 
     @include responsive_min(md) {
         grid-template-columns: repeat(2, fr);
 
         &--gap {
-            column-gap: 1.5rem; // Use variable instead of 1.5rem
+            column-gap: pxToRem(24); // Use variable instead of 24px
         }
         &--gap-secondary {
-            column-gap: 2.5rem; // Use variable instead of 2.5rem
+            column-gap: pxToRem(40); // Use variable instead of 40px
         }
     }
     @include responsive_min(lg) {
