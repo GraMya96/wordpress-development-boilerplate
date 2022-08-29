@@ -108,14 +108,6 @@ function get_string_between( $string, $start, $end ){
 *		return $all_languages;
 *	}
 * }
-
-* function get_dynamic_home_url() {
-* 	return apply_filters( 'wpml_home_url', get_option( 'home' ) );
-* }
-
-* function get_different_languages_url( $dynamic_url ) { always use dynamic_url of original page, in the main language
-*	return apply_filters( 'wpml_permalink', $dynamic_url);
-* }
 */
 
 
