@@ -23,7 +23,7 @@ $breakpoints: (
     "xl":  pxToEm(1248),
     "xxl": pxToEm(1440)
 );
-@mixin mq($width, $type: min) {
+@mixin responsive($width, $type: min) {
     @if map_has_key($breakpoints, $width) {
 
         $width: map_get($breakpoints, $width);

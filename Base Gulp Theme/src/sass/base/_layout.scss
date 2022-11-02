@@ -8,7 +8,7 @@
 .section {
     padding-block: pxToRem(32); // Use variable instead of 32px
 
-    @include responsive_min(md) {
+    @include responsive(md) {
         padding-block: pxToRem(64);
     }
 
@@ -41,7 +41,7 @@
     row-gap: pxToRem(32); // Use variable instead of 32px
     grid-template-columns: repeat(1, fr);
 
-    @include responsive_min(md) {
+    @include responsive(md) {
         grid-template-columns: repeat(2, fr);
 
         &--gap {
@@ -51,10 +51,51 @@
             column-gap: pxToRem(40); // Use variable instead of 40px
         }
     }
-    @include responsive_min(lg) {
+    @include responsive(lg) {
         grid-template-columns: repeat(3, fr);
         row-gap: 2.5rem;
     }
+}
+
+.margin-top {
+    /* The most general margin-top used on the website */
+    margin-top: pxToRem(25); // Use variable instead of 32px
+
+    // Title
+	&--title {
+        margin-top: pxToRem(10);
+
+		&--big {
+            margin-top: pxToRem(32);
+		}
+        &--small {
+            margin-top: pxToRem(8);
+		}
+	}
+
+    // Paragraph
+    &--paragraph {
+        margin-top: pxToRem(16);
+
+        &--big {
+            margin-top: pxToRem(32);
+		}
+        &--small {
+            margin-top: pxToRem(8);
+		}
+    }
+
+    // Section
+	&--section {
+        margin-top: pxToRem(48);
+
+        &--big {
+            margin-top: pxToRem(64);
+		}
+        &--small {
+            margin-top: pxToRem(32);
+		}
+	}
 }
 
 
