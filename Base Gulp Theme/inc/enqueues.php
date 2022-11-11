@@ -28,6 +28,30 @@ function theme_styles_and_scripts() {
 
 
 /**
+ * Defer all JS scripts
+ */
+add_filter( 'script_loader_tag', 'defer_scripts', 10, 3 );
+
+function defer_scripts( $tag ) {
+    return str_replace( ' src', ' defer src', $tag );
+}
+
+
+/**
+ * Defer all CSS (for now, only in the Homepage), excluding homepage.css and the
+ * theme general style.css file
+ */
+add_filter( 'style_loader_tag', 'defer_non_critical_styles', 10, 4 );
+
+function defer_non_critical_styles( $html, $handle, $href, $media ) {
+    if ( !is_admin() && is_front_page() && !str_contains( $href, 'homepage' ) && !str_contains( $href, 'style.css' ) ) {
+        $html = '<link rel="stylesheet" href="' . $href . '" media="print" onload="this.media=\'all\'; this.onload=null;">';
+    }
+    return $html;
+}
+
+
+/**
  * Load Google Fonts asynchronously from CDN.
  */
 add_action( 'wp_head', 'wpdd_google_fonts' );

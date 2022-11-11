@@ -184,12 +184,15 @@ export const replaceDevString = () => {
 
 		capitalizedName = newNameArray.join(' ');
 	} else {
-		capitalizedName = info.name.charAt(0).toUpperCase() + info.name.slice(1);
+		capitalizedName =
+			info.name.charAt(0).toUpperCase() + info.name.slice(1);
 	}
 
 	return src('**/*.{php,scss,css}')
 		.pipe(replace(`${info.name}-theme-dev`, `${info.name}-theme`))
-		.pipe(replace(`${capitalizedName} Theme Dev`, `${capitalizedName} Theme`))
+		.pipe(
+			replace(`${capitalizedName} Theme Dev`, `${capitalizedName} Theme`)
+		)
 		.pipe(dest(`../${info.name}-theme`));
 };
 // ------------------------------------------------
@@ -203,7 +206,10 @@ export const watchForChanges = () => {
 		series(copy, reload)
 	);
 	watch('src/js/**/*.js', series(webpackBundling, reload));
-	watch(['**/*.php', '!inc/**/*.php', '!inc/*.php'], series(reload));
+	watch(
+		['**/*.php', '!inc/**/*.php', '!inc/*.php', 'inc/enqueues.php'],
+		series(reload)
+	);
 };
 // ------------------------------------------------
 
