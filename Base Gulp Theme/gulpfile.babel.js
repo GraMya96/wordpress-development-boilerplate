@@ -94,11 +94,9 @@ export const copy = () => {
 
 /* TASK: Bundling all JS files and compiling
     all the code into ES5 using respectively webpack and its loader
-    babel-loader (@babel/preset-env package as 'presets of rules').
-	With this configuration, we are NOT concatenating all js files into
-	one main.min.js file */
+    babel-loader (@babel/preset-env package as 'presets of rules'). */
 export const webpackBundling = () => {
-	return src(['src/js/**/*.js'])
+	return src('src/js/**/main.js')
 		.pipe(named())
 		.pipe(
 			webpack({
@@ -121,7 +119,7 @@ export const webpackBundling = () => {
 				mode: PRODUCTION ? 'production' : 'development',
 				devtool: !PRODUCTION ? 'inline-source-map' : false,
 				output: {
-					filename: '[name].js',
+					filename: 'main.js',
 				},
 			})
 		)
@@ -184,15 +182,12 @@ export const replaceDevString = () => {
 
 		capitalizedName = newNameArray.join(' ');
 	} else {
-		capitalizedName =
-			info.name.charAt(0).toUpperCase() + info.name.slice(1);
+		capitalizedName = info.name.charAt(0).toUpperCase() + info.name.slice(1);
 	}
 
 	return src('**/*.{php,scss,css}')
 		.pipe(replace(`${info.name}-theme-dev`, `${info.name}-theme`))
-		.pipe(
-			replace(`${capitalizedName} Theme Dev`, `${capitalizedName} Theme`)
-		)
+		.pipe(replace(`${capitalizedName} Theme Dev`, `${capitalizedName} Theme`))
 		.pipe(dest(`../${info.name}-theme`));
 };
 // ------------------------------------------------
