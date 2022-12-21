@@ -1,17 +1,4 @@
 /**
- * Px to Em (for Media Queries) and Px to Rem
-*/
-$browser-context: 16; // Default
-
-@function pxToEm($pixels, $context: $browser-context) {
-  @return #{$pixels/$context}em;
-}
-@function pxToRem($pixels, $context: $browser-context) {
-    @return #{$pixels/$context}rem;
-}
-
-
-/**
  * Media Queries
 */
 $breakpoints: (

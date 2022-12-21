@@ -2,6 +2,7 @@
  * Layout
 */
 
+@import "../abstracts/functions";
 @import "../abstracts/mixins";
 @import "../abstracts/variables";
 
@@ -34,6 +35,29 @@
 .container-fluid {
     width: 100vw;
     display: flex;
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    row-gap: pxToRem(30);
+
+    @include responsive(sm) {
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        &--gap {
+            column-gap: pxToRem(24);
+        }
+        &--gap-secondary {
+            column-gap: pxToRem(35);
+        }
+    }
+
+    &--column {
+        flex-direction: column !important;
+        align-items: flex-start;
+    }
 }
 
 .grid {
