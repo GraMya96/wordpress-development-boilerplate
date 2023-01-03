@@ -28,11 +28,14 @@ function theme_styles_and_scripts() {
 
 
 /**
- * Defer all JS scripts
+ * Defer all JS scripts expect backend JS (WP-Admin) and jQuery
  */
-add_filter( 'script_loader_tag', 'defer_scripts', 10, 3 );
+add_filter( 'script_loader_tag', 'defer_parsing_of_js', 10 );
 
-function defer_scripts( $tag ) {
+function defer_parsing_of_js( $tag ) {
+    if ( is_user_logged_in() ) return $tag; //don't break WP Admin
+    if ( strpos( $tag, '.js' ) === FALSE ) return $tag;
+    if ( strpos( $tag, 'jquery.js' ) ) return $tag;
     return str_replace( ' src', ' defer src', $tag );
 }
 
