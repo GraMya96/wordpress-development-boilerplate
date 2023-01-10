@@ -28,7 +28,7 @@ function theme_styles_and_scripts() {
 
 
 /**
- * Defer all JS scripts expect backend JS (WP-Admin) and jQuery
+ * Defer all JS scripts except backend JS (WP-Admin) and jQuery
  */
 add_filter( 'script_loader_tag', 'defer_parsing_of_js', 10 );
 
